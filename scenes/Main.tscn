@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Tableau de bord.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/soleil.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/terre.png" type="Texture" id=4]
+[ext_resource path="res://scripts/Soleil.gd" type="Script" id=5]
+[ext_resource path="res://assets/art/mercure.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/vénus.png" type="Texture" id=7]
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Tableau de bord" parent="." instance=ExtResource( 1 )]
+anchor_right = 1.0
+margin_right = 0.0
+margin_bottom = 48.0
+
+[node name="TickCounter" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Soleil" type="Sprite" parent="."]
+position = Vector2( 622.729, 417.075 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+script = ExtResource( 5 )
+
+[node name="TerrePivot" type="Position2D" parent="Soleil"]
+
+[node name="Terre" type="Sprite" parent="Soleil/TerrePivot"]
+position = Vector2( 22.5, -1412.59 )
+texture = ExtResource( 4 )
+
+[node name="MercurePivot" type="Position2D" parent="Soleil"]
+
+[node name="Mercure" type="Sprite" parent="Soleil/MercurePivot"]
+position = Vector2( -4.76855, -461.978 )
+texture = ExtResource( 6 )
+
+[node name="VenusPivot" type="Position2D" parent="Soleil"]
+
+[node name="Venus" type="Sprite" parent="Soleil/VenusPivot"]
+position = Vector2( 2.49609, -896.487 )
+texture = ExtResource( 7 )
+
+[connection signal="date_changed" from="Tableau de bord" to="." method="_on_Tableau_de_bord_date_changed"]
+[connection signal="speed_changed" from="Tableau de bord" to="." method="_on_Tableau_de_bord_speed_changed"]
+[connection signal="start_pressed" from="Tableau de bord" to="." method="_on_Tableau_de_bord_start_pressed"]
+[connection signal="timeout" from="TickCounter" to="." method="_on_TickCounter_timeout"]
